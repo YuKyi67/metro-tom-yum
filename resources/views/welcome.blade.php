@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <x-guest-layout>
     <img 
         class="w-full h-[750px]"
@@ -10,12 +6,13 @@
         srcset=""
     >
 
-    <div class="max-w-screen-xl mx-auto px-2 sm:px-4 prose">
-        {{-- <hr class="text-primary bg-primary" /> --}}
-        <h1 class="text-primary m-0">Today's special</h1>
-        <hr class="bg-primary" />
-
-        <div class="grid md:grid-cols-3 gap-8">
+    <div class="container mx-auto px-4">
+        <div class="prose prose-headings:text-primary pb-8">
+            <h1>Today's special</h1>
+            {{-- <hr class="bg-primary" /> --}}
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-8">
             <x-card>
                 <h2 class="card-title">Shoes!</h2>
                 <p>If a dog chews shoes whose shoes does he choose?</p>
