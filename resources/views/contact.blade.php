@@ -62,7 +62,7 @@
                         </path>
                     </g>
                 </svg>
-                <p>1 SAWATDIKAN 2 ROAD SOI 9, NONGKHAEM,BANGKOK 10160, THAILAND</p>
+                <p>No 9, MEDAN SELERA LAMA, TAMAN MELAWATI, 53100 KUALA LUMPUR, SELENGOR</p>
             </div>
 
             <div class="flex items-center gap-4">
