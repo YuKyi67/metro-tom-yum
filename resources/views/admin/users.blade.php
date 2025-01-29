@@ -5,5 +5,5 @@
         </h2>
     </x-slot>
 
-    <x-content>Hello user</x-content>
+    <x-content>User list here</x-content>
 </x-app-layout>

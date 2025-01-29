@@ -14,6 +14,12 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+    public function index() {
+        $users = User::all();
+
+        return view('admin.users', ['users' => $users]);
+    }
+
     /**
      * Display the registration view.
      */

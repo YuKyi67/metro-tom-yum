@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,15 @@ Route::get('/contact', function () {
 });
 
 Route::get('/dashboard', function () {
+    // Check if the user is an admin
+    if (Auth::user()->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if (Auth::user()->role === 'staff') {
+        return redirect()->route('staff.dashboard');
+    }
+    
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -27,6 +37,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // Show all users
+    Route::get('/admin/users', [RegisteredUserController::class, 'index'])->name('users.index');
 });
 
 Route::middleware(['auth', 'role:staff'])->group(function () {
