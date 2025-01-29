@@ -5,5 +5,10 @@
         </h2>
     </x-slot>
 
-    <x-content>User list here</x-content>
+    <x-content>
+        @foreach ($users as $user)
+            {{ $user->name }}
+            {{ $user->role }}
+        @endforeach
+    </x-content>
 </x-app-layout>

@@ -12,34 +12,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    
-                    {{-- Role base routing --}}
-                    @auth
-                        @switch(Auth::user()->role)
-                        @case('admin')
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">{{ __('Users') }}</x-nav-link>
-                        @break
-                        
-                        @case('staff')
-                            <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        @break
 
-                        @case('user')
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        @break
-                    
-                        @default
-                            
-                            @break
-                        @endswitch
-                    @endauth
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    {{-- based on the defined policy --}}
+                    @can('viewAny', App\Models\User::class)
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">{{ __('Users') }}</x-nav-link>
+                    @endcan
                 </div>
             </div>
 

@@ -16,14 +16,14 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+// shows related dashboard based on role
 Route::get('/dashboard', function () {
-    // Check if the user is an admin
     if (Auth::user()->role === 'admin') {
-        return redirect()->route('admin.dashboard');
+        return view('admin.dashboard');
     }
 
     if (Auth::user()->role === 'staff') {
-        return redirect()->route('staff.dashboard');
+        return view('staff.dashboard');
     }
     
     return view('dashboard');
@@ -35,14 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    // Show all users
-    Route::get('/admin/users', [RegisteredUserController::class, 'index'])->name('users.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
 });
 
-Route::middleware(['auth', 'role:staff'])->group(function () {
-    Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-});
 
 require __DIR__ . '/auth.php';
