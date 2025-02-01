@@ -55,7 +55,6 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    // TODO: need to fix logic here
     public function destroy(Request $request, $id): RedirectResponse
     {
         $userToDelete = User::findOrFail($id);
@@ -79,9 +78,6 @@ class ProfileController extends Controller
         }
 
         if (Auth::user()->role === 'admin') {
-
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
 
             $userToDelete->delete();
 
