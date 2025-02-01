@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,47 +15,79 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit($id): View
     {
+        $user = User::findOrFail($id);
+
+        // Check if the user is authorized to edit the profile
+        if (Auth::user()->id !== $user->id && Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            // 'user' => $request->user(),
+            'user' => $user
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, $id): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = User::findOrFail($id);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if (Auth::user()->id !== $user->id && Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
         }
 
-        $request->user()->save();
+        $user->fill($request->validated());
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return Redirect::route('profile.edit', $user->id)->with('status', 'profile-updated');
     }
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    // TODO: need to fix logic here
+    public function destroy(Request $request, $id): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        $userToDelete = User::findOrFail($id);
 
-        $user = $request->user();
+        // if current user
+        if (Auth::user()->role !== 'admin') {
 
-        Auth::logout();
+            $request->validateWithBag('userDeletion', [
+                'password' => ['required', 'current_password'],
+            ]);
 
-        $user->delete();
+            // Logout current user
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            // Delete the user from the database
+            $userToDelete->delete();
 
-        return Redirect::to('/');
+            return Redirect::to('/');
+        }
+
+        if (Auth::user()->role === 'admin') {
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            $userToDelete->delete();
+
+            return Redirect::to('/users');
+        }
+
+        abort(403, 'Unauthorized action.');
     }
 }

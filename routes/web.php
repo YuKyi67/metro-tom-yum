@@ -25,19 +25,20 @@ Route::get('/dashboard', function () {
     if (Auth::user()->role === 'staff') {
         return view('staff.dashboard');
     }
-    
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [RegisteredUserController::class, 'create'])->name('users.create');
+    Route::post('/users/create', [RegisteredUserController::class, 'adminStore'])->name('users.adminStore');
 });
-
 
 require __DIR__ . '/auth.php';

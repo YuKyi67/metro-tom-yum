@@ -1,11 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Users') }}
         </h2>
-    </x-slot>
+    </x-slot> --}}
 
     <x-content>
+        <a type="button" class="btn btn-outline btn-sm" href="{{ route('users.create') }}">Add</a>
         <div class="overflow-x-auto">
             <table class="table">
                 <!-- head -->
@@ -25,8 +26,10 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>
                             <th>
-                                <button class="btn btn-ghost btn-xs">Edit</button>
-                                <button class="btn btn-warning btn-xs">Delete</button>
+                                <a type="button" class="btn btn-outline btn-xs"
+                                    href="{{ route('profile.edit', $user->id) }}">Manage</a>
+                                {{-- <a type="button" class="btn btn-warning btn-xs"
+                                    href="{{ route('profile.destroy', $user->id) }}">Delete</a> --}}
                             </th>
                         </tr>
                     @endforeach
