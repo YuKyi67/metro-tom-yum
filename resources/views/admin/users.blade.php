@@ -6,7 +6,9 @@
     </x-slot> --}}
 
     <x-content>
-        <a type="button" class="btn btn-outline btn-sm" href="{{ route('users.create') }}">Add</a>
+        <div class="flex justify-end mb-8">
+            <a type="button" class="btn btn-primary" href="{{ route('users.create') }}">Add New User</a>
+        </div>
         <div class="overflow-x-auto">
             <table class="table">
                 <!-- head -->

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [RegisteredUserController::class, 'create'])->name('users.create');
     Route::post('/users/create', [RegisteredUserController::class, 'adminStore'])->name('users.adminStore');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/menu', [MenuItemController::class, 'index'])->name('menu.index');
+    Route::get('/menu/create', [MenuItemController::class, 'create'])->name('menu.create');
+    Route::get('/menu/edit', [MenuItemController::class, 'edit'])->name('menu.edit');
+    Route::delete('/menu', [MenuItemController::class, 'destory'])->name('menu.destroy');
 });
 
 require __DIR__ . '/auth.php';

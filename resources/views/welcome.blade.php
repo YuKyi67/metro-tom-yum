@@ -15,8 +15,6 @@
             </div>
         </div>
 
-        
-
         <div class="grid md:grid-cols-4 gap-8">
             <x-card>
                 <h2 class="card-title">Shoes!</h2>
