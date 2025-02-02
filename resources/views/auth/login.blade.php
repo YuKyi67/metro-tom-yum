@@ -6,7 +6,7 @@
         @csrf
 
         <div
-            class="sm:max-w-md mx-auto space-y-6 mt-40 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            class="sm:max-w-md mx-auto space-y-6 mt-20 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
             <!-- Email Address -->
             <div>
                 <x-input-label for="email" :value="__('Email')" />
