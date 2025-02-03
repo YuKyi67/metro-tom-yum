@@ -1,7 +1,7 @@
 <x-guest-layout>
     <img class="w-full h-[750px]" src="{{ Vite::asset('resources/images/tomyum-temp-photo.jpg') }}" alt="" srcset="">
 
-    <div class="container mx-auto px-4">
+    <div class="container max-w-7xl mx-auto px-4">
         <div class="prose prose-headings:text-primary prose-a:no-underline pb-8">
             <h1>What We Offer</h1>
             {{--

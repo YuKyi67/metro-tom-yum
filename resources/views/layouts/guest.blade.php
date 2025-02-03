@@ -19,9 +19,9 @@
 <body class="font-sans antialiased bg-base-100 min-h-screen">
     <header class="bg-primary/20 dark:bg-neutral shadow-2xl">
         <div class="border-b border-primary/10 dark:border-gray-700 p-2">
-            <p class="container mx-auto font-semibold text-sm">Welcome to Metro</p>
+            <p class="container max-w-7xl mx-auto font-semibold text-sm">Welcome to Metro</p>
         </div>
-        <nav class="container mx-auto navbar py-6">
+        <nav class="container max-w-7xl mx-auto navbar py-6">
             <div class="navbar-start">
                 {{-- Mobile --}}
                 <div class="dropdown">
