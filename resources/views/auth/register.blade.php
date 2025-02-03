@@ -2,7 +2,7 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <div class="w-full mx-auto space-y-6 sm:px-6 lg:px-8 sm:max-w-md mt-40 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        <div class="w-full mx-auto space-y-6 sm:px-6 lg:px-8 sm:max-w-md mt-20 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />
