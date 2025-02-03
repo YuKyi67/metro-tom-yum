@@ -5,10 +5,11 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
+use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['menuItems' => MenuItem::all()]);
 });
 Route::get('/about', function () {
     return view('about');

@@ -32,7 +32,7 @@
                 </div>
 
                 <div>
-                    <x-input-label for="imagePath" :value="__('Upload product image')" />
+                    <x-input-label for="imagePath" :value="__('Upload image')" />
                     <input type="file" id="imagePath" name="imagePath" class="file-input file-input-md file-input-bordered w-full" />
                     <x-input-error :messages="$errors->get('imagePath')" class="mt-2" />
                 </div>
