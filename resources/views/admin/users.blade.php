@@ -7,7 +7,7 @@
 
     <x-content>
         <div class="flex justify-end mb-8">
-            <a type="button" class="btn btn-primary" href="{{ route('users.create') }}">Add New User</a>
+            <a type="button" class="btn btn-primary" href="{{ route('users.create') }}">+ Add New User</a>
         </div>
         <div class="overflow-x-auto">
             <table class="table">

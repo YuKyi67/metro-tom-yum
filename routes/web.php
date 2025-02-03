@@ -5,13 +5,14 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
+use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
 use PharIo\Manifest\Author;
 use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['menuItems' => MenuItem::all()]);
 });
 Route::get('/about', function () {
     return view('about');
@@ -35,7 +36,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -48,8 +49,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/menu', [MenuItemController::class, 'index'])->name('menu.index');
     Route::get('/menu/create', [MenuItemController::class, 'create'])->name('menu.create');
-    Route::get('/menu/edit', [MenuItemController::class, 'edit'])->name('menu.edit');
-    Route::delete('/menu', [MenuItemController::class, 'destory'])->name('menu.destroy');
+    Route::post('/menu/create', [MenuItemController::class, 'store'])->name('menu.store');
+    Route::get('/menu/edit/{id}', [MenuItemController::class, 'edit'])->name('menu.edit');
+    Route::put('/menu/{item}', [MenuItemController::class, 'update'])->name('menu.update');
+    Route::delete('/menu/{id}', [MenuItemController::class, 'destroy'])->name('menu.destroy');
 });
 
 require __DIR__ . '/auth.php';
