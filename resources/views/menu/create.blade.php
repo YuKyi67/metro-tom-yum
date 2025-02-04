@@ -2,7 +2,8 @@
     <x-content>
         <form method="POST" action="{{ route('menu.store') }}" enctype="multipart/form-data">
             @csrf
-            <div class="prose space-y-6 sm:px-6 lg:px-8 sm:max-w-lg mx-auto px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <div
+                class="prose space-y-6 sm:px-6 lg:px-8 sm:max-w-lg mx-auto px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                 <h1>Add New Item</h1>
                 <div>
                     <x-input-label for="name" :value="__('Name')" />
@@ -13,8 +14,8 @@
 
                 <div>
                     <x-input-label for="price" :value="__('Price')" />
-                    <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" step="0.01" :value="old('price')"
-                        required />
+                    <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" step="0.01"
+                        :value="old('price')" required />
                     <x-input-error :messages="$errors->get('price')" class="mt-2" />
                 </div>
 
@@ -27,13 +28,14 @@
                         <option value="Rice Dish">Rice Dish</option>
                         <option value="Side Dish">Side Dish</option>
                         <option value="Drink">Drink</option>
-                      </select>
+                    </select>
                     <x-input-error :messages="$errors->get('category')" class="mt-2" />
                 </div>
 
                 <div>
                     <x-input-label for="imagePath" :value="__('Upload image')" />
-                    <input type="file" id="imagePath" name="imagePath" class="file-input file-input-md file-input-bordered w-full" />
+                    <input type="file" id="imagePath" name="imagePath"
+                        class="file-input file-input-md file-input-bordered w-full" />
                     <x-input-error :messages="$errors->get('imagePath')" class="mt-2" />
                 </div>
 
