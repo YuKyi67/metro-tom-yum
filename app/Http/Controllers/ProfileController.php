@@ -15,10 +15,8 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit($id): View
+    public function edit(User $user): View
     {
-        $user = User::findOrFail($id);
-
         // Check if the user is authorized to edit the profile
         if (Auth::user()->id !== $user->id && Auth::user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
@@ -33,10 +31,8 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request, $id): RedirectResponse
+    public function update(ProfileUpdateRequest $request, User $user): RedirectResponse
     {
-        $user = User::findOrFail($id);
-
         if (Auth::user()->id !== $user->id && Auth::user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
@@ -49,15 +45,14 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit', $user->id)->with('status', 'profile-updated');
+        return Redirect::route('profile.edit', $user)->with('status', 'profile-updated');
     }
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request, $id): RedirectResponse
+    public function destroy(Request $request, User $user): RedirectResponse
     {
-        $userToDelete = User::findOrFail($id);
 
         // if current user
         if (Auth::user()->role !== 'admin') {
@@ -72,16 +67,16 @@ class ProfileController extends Controller
             $request->session()->regenerateToken();
 
             // Delete the user from the database
-            $userToDelete->delete();
+            $user->delete();
 
             return Redirect::to('/');
         }
 
         if (Auth::user()->role === 'admin') {
 
-            $userToDelete->delete();
+            $user->delete();
 
-            return Redirect::to('/users');
+            return Redirect::route('users.index');
         }
 
         abort(403, 'Unauthorized action.');
