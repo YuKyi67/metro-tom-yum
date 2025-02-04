@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,6 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     public function index() {
-        // register the policy
         Gate::authorize('viewAny', User::class);
 
         $users = User::all(); // need to solve n+1 problem
@@ -47,6 +47,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Check if the user is authenticated and is allowed to create users
+        if (auth()->check() && !Gate::allows('create', User::class)) {
+            throw new AuthorizationException("You are not authorized to perform this action.");
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -65,36 +70,15 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        // if admin is creating user
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return redirect(route('users.index', absolute: false));
+        }
 
         Auth::login($user);
 
+        // For guests, redirect to the dashboard after registration
         return redirect(route('dashboard', absolute: false));
-    }
-
-    public function adminStore(Request $request): RedirectResponse
-    {
-        Gate::authorize('create', User::class);
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['nullable', 'in:admin,staff,user'], // Role is optional, see migration file for type
-        ]);
-
-        // if not provided, default to user
-        $role = $request->role ?? 'user';
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $role,
-            'password' => Hash::make($request->password),
-        ]);
-
-        event(new Registered($user));
-
-        // go back to user route when successful
-        return redirect(route('users.index', absolute: false));
     }
 }

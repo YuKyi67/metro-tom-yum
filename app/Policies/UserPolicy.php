@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -16,7 +17,7 @@ class UserPolicy
 
     // only the admin can view all users
     public function viewAny(User $user) {
-        return $user->role === 'admin';
+        return $user->role === 'admin' ? Response::allow() : Response::deny('Permisson denied');
     }
 
     // only the admin can create
