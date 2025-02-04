@@ -9,7 +9,7 @@
                 <div class="flex flex-col justify-between">
                     <div>
                         <h4>{{ $item->name }}</h4>
-                        <p>$RM {{ $item->price }}</p>
+                        <p>$ {{ $item->price }}</p>
                     </div>
                     <div class="badge badge-primary badge-outline mt-8">{{ $item->category }}</div>
                 </div>
