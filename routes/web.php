@@ -36,7 +36,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/edit/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/{id}', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/menu/create', [MenuItemController::class, 'create'])->name('menu.create');
     Route::post('/menu/create', [MenuItemController::class, 'store'])->name('menu.store');
     Route::get('/menu/edit/{item}', [MenuItemController::class, 'edit'])->name('menu.edit');
-    Route::put('/menu/{item}', [MenuItemController::class, 'update'])->name('menu.update');
+    Route::put('/menu/edit/{item}', [MenuItemController::class, 'update'])->name('menu.update');
     Route::delete('/menu/{item}', [MenuItemController::class, 'destroy'])->name('menu.destroy');
 });
 

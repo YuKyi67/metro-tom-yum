@@ -60,10 +60,6 @@ class MenuItemController extends Controller
     // Route modal binding
     public function update(Request $request, MenuItem $item)
     {
-        if ($request->user()->cannot('update', MenuItem::class)) {
-            abort(403);
-        }
-
         $attributes = $request->validate([
             'name' => ['required', 'min:3'],
             'price' => ['required', 'numeric'],
