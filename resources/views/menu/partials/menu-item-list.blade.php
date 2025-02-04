@@ -1,7 +1,7 @@
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-2 gap-1">
     @foreach ($menuItems as $item)
         <div
-            class="flex justify-between border border-neutral/50 hover:border-neutral hover:bg-neutral/50 hover:shadow-lg p-4">
+            class="flex justify-between border border-neutral/50 shadow-sm shadow-neutral/70 rounded-md hover:border-neutral hover:bg-neutral/50 hover:shadow-lg p-4">
             <div class="flex gap-4">
                 <figure class="m-0">
                     <img src="{{ $item->imagePath }}" alt="Shoes" class="h-32 w-40 rounded-lg" />
