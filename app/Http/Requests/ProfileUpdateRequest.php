@@ -29,11 +29,6 @@ class ProfileUpdateRequest extends FormRequest
             ],
         ];
 
-        // reuired current password if not admin
-        if (Auth::user()->role !== 'admin') {
-            $rules['current_password'] = ['required', 'current_password'];
-        }
-
         return $rules;
     }
 }
