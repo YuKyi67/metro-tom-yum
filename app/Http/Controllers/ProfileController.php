@@ -53,32 +53,24 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request, User $user): RedirectResponse
     {
+        $request->validateWithBag('userDeletion', [
+            'password' => [Auth::user()->role !== 'admin' ? 'required' : 'nullable', 'current_password'],
+        ]);
 
         // if current user
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'admin') {
+            $user->delete();
 
-            $request->validateWithBag('userDeletion', [
-                'password' => ['required', 'current_password'],
-            ]);
-
+            return Redirect::route('users.index');
+        } else {
             // Logout current user
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            // Delete the user from the database
             $user->delete();
 
             return Redirect::to('/');
         }
-
-        if (Auth::user()->role === 'admin') {
-
-            $user->delete();
-
-            return Redirect::route('users.index');
-        }
-
-        abort(403, 'Unauthorized action.');
     }
 }
