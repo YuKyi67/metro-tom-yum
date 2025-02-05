@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Redirect;
 
 class MenuItemController extends Controller
@@ -18,6 +19,9 @@ class MenuItemController extends Controller
 
     public function create()
     {
+        if (Auth::user()->cannot('create', MenuItem::class)) {
+            abort(403);
+        }
         return view("menu.create");
     }
 
@@ -44,11 +48,13 @@ class MenuItemController extends Controller
         return redirect()->route('menu.index');
     }
 
-    public function edit($id)
+    public function edit(MenuItem $item)
     {
-        $itemToBeUpdated = MenuItem::findOrFail($id);
+        if (Auth::user()->cannot('update', $item)) {
+            abort(403);
+        }
 
-        return view("menu.edit", ['item' => $itemToBeUpdated]);
+        return view("menu.edit", ['item' => $item]);
     }
 
     // Route modal binding
@@ -76,10 +82,10 @@ class MenuItemController extends Controller
         return redirect()->route('menu.index');
     }
 
-    public function destroy($id)
+    public function destroy(MenuItem $item)
     {
         // dd($id);
-        MenuItem::destroy($id);
+        MenuItem::destroy($item->id);
 
         return redirect()->route('menu.index');
     }

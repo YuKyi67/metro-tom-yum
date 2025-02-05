@@ -1,7 +1,7 @@
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-2 gap-1">
     @foreach ($menuItems as $item)
         <div
-            class="flex justify-between border border-neutral/50 hover:border-neutral hover:bg-neutral/50 hover:shadow-lg p-4">
+            class="flex justify-between border border-neutral-300 dark:border-neutral/50 shadow-sm shadow-neutral/70 rounded-md dark:hover:border-neutral hover:bg-neutral/50 hover:shadow-md p-4">
             <div class="flex gap-4">
                 <figure class="m-0">
                     <img src="{{ $item->imagePath }}" alt="Shoes" class="h-32 w-40 rounded-lg" />
@@ -14,9 +14,9 @@
                     <div class="badge badge-primary badge-outline mt-8">{{ $item->category }}</div>
                 </div>
             </div>
-            @if ((Auth::check() && Auth::user()->role !== 'admin') || Auth::guest())
-                <button class="btn btn-primary btn-sm">Add To Cart</button>
-            @else
+
+            {{-- based on the defined policy --}}
+            @can(['update', 'delete'], $item)
                 <div class="flex flex-col gap-2">
                     <a type="btn" href="{{ route('menu.edit', $item->id) }}" class="btn btn-outline btn-sm">Edit</a>
                     <form action="{{ route('menu.destroy', $item->id) }}" method="POST">
@@ -25,7 +25,9 @@
                         <button type="submit" class="btn btn-warning btn-sm">Delete</button>
                     </form>
                 </div>
-            @endif
+            @else
+                <button class="btn btn-primary btn-sm">Add To Cart</button>
+            @endcan
         </div>
     @endforeach
 </div>

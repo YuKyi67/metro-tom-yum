@@ -25,14 +25,10 @@ class ProfileUpdateRequest extends FormRequest
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($this->route('id')),
+                Rule::unique(User::class)->ignore($this->route('user')),
+                // Rule::unique(User::class)->ignore($this->user()->id),
             ],
         ];
-
-        // reuired current password if not admin
-        if (Auth::user()->role !== 'admin') {
-            $rules['current_password'] = ['required', 'current_password'];
-        }
 
         return $rules;
     }
