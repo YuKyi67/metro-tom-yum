@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StaffController;
 use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
-use PharIo\Manifest\Author;
 use Illuminate\Support\Facades\Auth;
 
 
