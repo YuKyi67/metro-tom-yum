@@ -23,7 +23,9 @@
 
     Seventh - php artisan db:seed --class=UserSeeder
    
-    Eighth - npm run dev (run the localhost)
+    Eighth - Change the localhost URL in .env -> APP_URL (like http\\ metro-ton-yum.test)
+
+    Ninth - npm run dev (run the localhost)
 
 List of the username and password
 
