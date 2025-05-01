@@ -23,7 +23,7 @@
 
     Seventh - php artisan db:seed --class=UserSeeder
    
-    Eighth - Change the localhost URL in .env -> APP_URL (like http\\ metro-ton-yum.test)
+    Eighth - Change the localhost URL in .env -> APP_URL (like (http://metro-tom-yum.test))
 
     Ninth - npm run dev (run the localhost)
 
