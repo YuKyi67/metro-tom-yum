@@ -26,6 +26,8 @@
     Eighth - Change the localhost URL in .env -> APP_URL (like (http://metro-tom-yum.test))
 
     Ninth - npm run dev (run the localhost)
+   
+Link of the project (https://metro-tom-yam-2dalc.ondigitalocean.app/)
 
 List of the username and password
 
