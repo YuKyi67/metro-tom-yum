@@ -27,7 +27,7 @@
 
     Ninth - npm run dev (run the localhost)
 
-    Ten   - To run the project on localhost,set https: false In "vite.config.js" file,
+    Ten   - To run the project on localhost,set https: false in "vite.config.js" file
    
 Link of the project (https://metro-tom-yam-2dalc.ondigitalocean.app/)
 
