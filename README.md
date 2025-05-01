@@ -8,13 +8,21 @@
 6. Open the code in Visual Studio Code
 7. Open the extensions in Visual Studio code install the Laravel , PHP and DBCode
 8. After install, open terminal type :
+   
     First - npm install
+
     Second - cp .env.example .env
+   
     Third - composer install
+   
     Fourth - php artisan key:generate
+   
     Fifth - php artisan migrate
+   
     Sixth - Go to left bar click the DBCode you can see the database
+
     Seventh - php artisan db:seed --class=UserSeeder
+   
     Eighth - npm run dev (run the localhost)
 
 List of the username and password
