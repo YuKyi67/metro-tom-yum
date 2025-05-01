@@ -18,6 +18,7 @@
     Eighth - npm run dev (run the localhost)
 
 List of the username and password
+
 Cutomer Id: weexinhui04@gmail.com Password: 1245678
 
 Staff User Id: weexh04@gmail.com Password: password
